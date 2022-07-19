@@ -1,1 +1,58 @@
 
+a provincies/localitats no guardo el dni del client en aquestes taules, ja que podem tenir a una mateixa localitat milers de
+clients, ens quedaría una taula amb masa repetició de dades.
+La informació de la ubicació de cada client, la guardo dins de la propia taula client.
+
+
+/PLANTEJAR BE/
+
+
+taula comandes_empleats_clients per saber totom que interve en la gestio daquesta comanda i agitlitzar consultas
+
+taula comandes _productes per saber els productes en concret de cada comanda
+
+taula comandes informacio general (hora, cantitat productes i quins)
+
+
+/ALTRE README/
+
+provincies/localitats no li ficu el dni del client, suposem que a bcn tenim 20 mil clients, tindriem que repetir la pk de bcn i el seu nom
+20 mil vegades pels 20 mil clients diferents
+aixo sera un atribut per cada client a la taula client
+
+tampoc li fiquem com a atribut ni de clients ni de botigues, repetiriam masas dades en diferents taules, desde la taula localitat
+
+
+taula comandes_empleats: per saber de forma rapida i eficaz cada comanda, quins empleats la gestionan i a quin client pertany
+
+comandes_productes li fiquem el nom del producte, per evitar consultes masa complicadas i que sigui mes llegible la taula
+
+
+
+
+
+
+
+
+/CONSULTAS/
+
+consulta, per saber les begudes venudes en una localitat, podem seleccionar el total de begudes de la llista de comandes i
+ buscar de quina localitat es cada client (una en concret)
+
+per trobar la cantitat de comandes de un empleat sera molt util la taula comandes_empleats_clients que reflexa totom que interve en la comanda
+tenim a la mateixa taula quantes comandes realitza cada empleat
+
+
+/*Llista quants productes de categoria 'Begudes' s'han venut en una determinada localitat*/
+
+select count(comandes.begudes) as total_begudes, clients.ID_localitat, localitats.Nom as nom_localitat
+from comandes
+inner join clients
+on comandes.ID_comanda = clients.ID_localitat
+inner join localitats
+on clients.ID_localitat = localitats.ID_localitat
+where localitats.Nom = "Hospitalet";
+
+/*Llista quantes comandes ha efectuat un determinat empleat/da.*/
+select count(ID_comanda) from comandes_empleats_clients
+where Dni_empleat = "435323T"
