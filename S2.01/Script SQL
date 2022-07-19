@@ -1,1 +1,205 @@
 
+CREATE SCHEMA IF NOT EXISTS `pizzeria` DEFAULT CHARACTER SET utf8 ;
+USE `pizzeria` ;
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Comandes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Comandes` (
+  `ID_comanda` INT NOT NULL AUTO_INCREMENT,
+  `preu` INT NOT NULL,
+  `data_hora` DATETIME NOT NULL,
+  `Entrega` VARCHAR(45) NOT NULL,
+  `quantitat_productes` VARCHAR(45) NULL,
+  `burguers` INT NULL,
+  `begudes` INT NULL,
+  `pizzes` INT NULL,
+  PRIMARY KEY (`ID_comanda`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Provincies`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Provincies` (
+  `ID_provincia` INT NOT NULL AUTO_INCREMENT,
+  `Nom` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID_provincia`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Botigues`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Botigues` (
+  `ID_botiga` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(45) NULL,
+  `Codi_postal` VARCHAR(45) NULL,
+  `Direccio` VARCHAR(45) NULL,
+  PRIMARY KEY (`ID_botiga`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Localitats`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Localitats` (
+  `ID_localitat` INT NOT NULL AUTO_INCREMENT,
+  `Nom` VARCHAR(45) NOT NULL,
+  `ID_provincia` INT NOT NULL,
+  `ID_botiga` INT NULL,
+  PRIMARY KEY (`ID_localitat`, `ID_provincia`),
+  INDEX `ID_provincia_idx` (`ID_provincia` ASC) VISIBLE,
+  INDEX `ID_botiga_idx` (`ID_botiga` ASC) VISIBLE,
+  CONSTRAINT `ID_provincia`
+    FOREIGN KEY (`ID_provincia`)
+    REFERENCES `pizzeria`.`Provincies` (`ID_provincia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_botiga`
+    FOREIGN KEY (`ID_botiga`)
+    REFERENCES `pizzeria`.`Botigues` (`ID_botiga`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Clients`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Clients` (
+  `Dni_client` VARCHAR(30) NOT NULL,
+  `Nom` VARCHAR(45) NOT NULL,
+  `Cognoms` VARCHAR(45) NOT NULL,
+  `Direccio` VARCHAR(45) NULL,
+  `provincia` VARCHAR(45) NULL,
+  `localitat` VARCHAR(45) NULL,
+  `Codi_postal` VARCHAR(20) NULL,
+  `Telèfon` VARCHAR(20) NULL,
+  `ID_comanda` INT NOT NULL,
+  `ID_localitat` INT NULL,
+  `ID_provincia` INT NULL,
+  PRIMARY KEY (`Dni_client`, `ID_comanda`),
+  INDEX `ID_comanda_idx` (`ID_comanda` ASC) VISIBLE,
+  INDEX `fk_Clients_Localitats1_idx` (`ID_localitat` ASC, `ID_provincia` ASC) VISIBLE,
+  CONSTRAINT `ID_comanda`
+    FOREIGN KEY (`ID_comanda`)
+    REFERENCES `pizzeria`.`Comandes` (`ID_comanda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Clients_Localitats1`
+    FOREIGN KEY (`ID_localitat` , `ID_provincia`)
+    REFERENCES `pizzeria`.`Localitats` (`ID_localitat` , `ID_provincia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Empleats`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Empleats` (
+  `Dni_empleat` VARCHAR(30) NOT NULL,
+  `Nom` VARCHAR(45) NOT NULL,
+  `Cognoms` VARCHAR(45) NOT NULL,
+  `Telèfon` VARCHAR(45) NOT NULL,
+  `Lloc_de_treball` VARCHAR(45) NOT NULL,
+  `ID_botiga` INT NOT NULL,
+  PRIMARY KEY (`Dni_empleat`, `ID_botiga`),
+  INDEX `fk_Empleats_Botigues1_idx` (`ID_botiga` ASC) VISIBLE,
+  CONSTRAINT `fk_Empleats_Botigues1`
+    FOREIGN KEY (`ID_botiga`)
+    REFERENCES `pizzeria`.`Botigues` (`ID_botiga`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Productes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Productes` (
+  `ID_producte` INT NOT NULL AUTO_INCREMENT,
+  `Tipo_producte` VARCHAR(40) NOT NULL,
+  `Descipcio` VARCHAR(100) NULL,
+  `Preu` DOUBLE NULL,
+  `Imatge` BLOB NULL,
+  PRIMARY KEY (`ID_producte`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Categorias_pizza`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Categorias_pizza` (
+  `ID_categoria` INT NOT NULL AUTO_INCREMENT,
+  `Nom` VARCHAR(45) NOT NULL,
+  `ID_producte` INT NOT NULL,
+  PRIMARY KEY (`ID_categoria`, `ID_producte`),
+  INDEX `fk_Categorias_pizza_Productes1_idx` (`ID_producte` ASC) VISIBLE,
+  CONSTRAINT `fk_Categorias_pizza_Productes1`
+    FOREIGN KEY (`ID_producte`)
+    REFERENCES `pizzeria`.`Productes` (`ID_producte`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Comandes_Productes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Comandes_Productes` (
+  `ID_comandes_productes` INT NOT NULL,
+  `ID_comanda` INT NOT NULL,
+  `ID_producte` INT NOT NULL,
+  PRIMARY KEY (`ID_comandes_productes`, `ID_comanda`),
+  INDEX `fk_Comandes_has_Productes_Productes1_idx` (`ID_producte` ASC) VISIBLE,
+  INDEX `fk_Comandes_has_Productes_Comandes1_idx` (`ID_comanda` ASC) VISIBLE,
+  CONSTRAINT `fk_Comandes_has_Productes_Comandes1`
+    FOREIGN KEY (`ID_comanda`)
+    REFERENCES `pizzeria`.`Comandes` (`ID_comanda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comandes_has_Productes_Productes1`
+    FOREIGN KEY (`ID_producte`)
+    REFERENCES `pizzeria`.`Productes` (`ID_producte`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzeria`.`Comandes_Empleats_clients`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzeria`.`Comandes_Empleats_clients` (
+  `ID_Comandes_Empleats` INT NOT NULL,
+  `ID_comanda` INT NOT NULL,
+  `Dni_empleat` VARCHAR(30) NOT NULL,
+  `Dni_client` VARCHAR(30) NOT NULL,
+  `ID_botiga` INT NOT NULL,
+  PRIMARY KEY (`ID_Comandes_Empleats`, `ID_comanda`),
+  INDEX `fk_Comandes_has_Empleats_Empleats1_idx` (`Dni_empleat` ASC) VISIBLE,
+  INDEX `fk_Comandes_has_Empleats_Comandes1_idx` (`ID_comanda` ASC) VISIBLE,
+  INDEX `fk_Comandes_Empleats_Clients1_idx` (`Dni_client` ASC) VISIBLE,
+  INDEX `fk_Comandes_Empleats_Botigues1_idx` (`ID_botiga` ASC) VISIBLE,
+  CONSTRAINT `fk_Comandes_has_Empleats_Comandes1`
+    FOREIGN KEY (`ID_comanda`)
+    REFERENCES `pizzeria`.`Comandes` (`ID_comanda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comandes_has_Empleats_Empleats1`
+    FOREIGN KEY (`Dni_empleat`)
+    REFERENCES `pizzeria`.`Empleats` (`Dni_empleat`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comandes_Empleats_Clients1`
+    FOREIGN KEY (`Dni_client`)
+    REFERENCES `pizzeria`.`Clients` (`Dni_client`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comandes_Empleats_Botigues1`
+    FOREIGN KEY (`ID_botiga`)
+    REFERENCES `pizzeria`.`Botigues` (`ID_botiga`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
