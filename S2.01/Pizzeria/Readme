@@ -1,7 +1,17 @@
+TAULES PROVINCIES/LOCALITATS:
+No guardo el dni del client en aquestes taules, ja que podem tenir a una mateixa localitat milers de
+clients, ens quedaría una taula amb masa repetició de localitats/provincies per cada client.
 
-a provincies/localitats no guardo el dni del client en aquestes taules, ja que podem tenir a una mateixa localitat milers de
-clients, ens quedaría una taula amb masa repetició de dades.
+Guardo el les diferents provincies i les diferents botigues dins de cada localitat.
+
 La informació de la ubicació de cada client, la guardo dins de la propia taula client.
+
+TAULA CLIENT:
+
+
+
+
+
 
 
 /PLANTEJAR BE/
