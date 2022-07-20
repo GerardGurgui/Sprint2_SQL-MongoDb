@@ -1,0 +1,28 @@
+
+
+
+/*CONSULTES*/
+
+
+/*1- Llista el total de factures d'un client/a en un període determinat. */
+select id_client, count(id_ullera) as total_factures
+from ulleres_clients
+where id_client = "4"
+and data_venta between '2020-01-01' and '2022-12-31'; 
+
+
+/*2-Llista els diferents models d'ulleres que ha venut un empleat/da durant un any.*/
+select ulleres_clients.dni_empleat_venedor, ulleres.marca, ulleres.id_ullera
+from ulleres
+inner join ulleres_clients
+on ulleres.id_ullera = ulleres_clients.id_ullera
+where dni_empleat_venedor = "632739J";
+
+
+/*3- Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica. */
+/*seleccionant les ids de las ulleres qaue han comprat els clients, relacionan amb quin proveidor pertoca cada una*/
+select ulleres_clients.id_ullera as total_ulleres, ulleres.Dni_proveidor
+from ulleres_clients
+inner join ulleres
+on ulleres_clients.id_ulleres_clientscol = ulleres.id_ullera
+
