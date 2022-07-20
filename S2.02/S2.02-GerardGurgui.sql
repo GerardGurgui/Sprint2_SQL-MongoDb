@@ -123,9 +123,11 @@ WHERE cuatrimestre = 1 and id_grado = 7;
 /*6- Retorna un llistat dels professors/es juntament amb el nom del departament al qual estan vinculats.
  El llistat ha de retornar quatre columnes, primer cognom, segon cognom, nom i nom del departament.
  El resultat estarà ordenat alfabèticament de menor a major pels cognoms i el nom.*/
-SELECT persona.nombre, persona.apellido1, persona.apellido2, departamento.nombre as nombre_departamento
-from persona inner join departamento on persona.id = departamento.id
-where persona.tipo = "profesor"
+select persona.apellido1, persona.apellido2, persona.nombre, departamento.nombre 
+from persona
+inner join profesor
+on profesor.id_profesor = persona.id
+inner join departamento on profesor.id_departamento = departamento.id
 order by persona.nombre ASC;
 
 /*7- Retorna un llistat amb el nom de les assignatures, any d'inici i any de fi del curs escolar de l'alumne/a amb NIF 26902806M.*/
