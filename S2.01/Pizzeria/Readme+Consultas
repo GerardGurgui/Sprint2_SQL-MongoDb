@@ -40,11 +40,11 @@ inner join clients
 on comandes.Dni_client = clients.Dni_client
 inner join localitats
 on clients.ID_localitat = localitats.ID_localitat
-where localitats.Nom = "Hospitalet" 
+where localitats.Nom = "Hospitalet"; 
 
 
 /*2- Llista quantes comandes ha efectuat un determinat empleat/da.*/
 per trobar la cantitat de comandes de un empleat serà molt útil la taula comandes_empleats_clients que detalla tothom que intervé en la comanda
 
 select count(ID_comanda) from comandes_empleats_clients
-where Dni_empleat = "435323T"
+where Dni_empleat = "435323T";
