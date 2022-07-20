@@ -28,20 +28,22 @@ aquesta taula ens servirá per identificar els productes en concret que formen c
 //CONSULTES//
 
 /*1- Llista quants productes de categoria 'Begudes' s'han venut en una determinada localitat*/
-consulta, per saber les begudes venudes en una localitat, podem seleccionar el total de begudes de la llista de comandes.
-amb el total de begudes, 
+
+podem seleccionar les comandes que tinguin begudes i mirar de quins clients sòn. Sabent això, amb el dni dels clients
+podem saber a quines localitats viuen i per tant, de quina localitat sòn aquestes comandes.
+filtrarem buscant una localitat en concret
 
 
-select count(comandes.begudes) as total_begudes, localitats.Nom as nom_localitat
+select count(comandes.begudes) as total_begudes, localitats.ID_localitat, localitats.Nom as nom_localitat
 from comandes
 inner join clients
-on comandes.ID_comanda = clients.ID_localitat
+on comandes.Dni_client = clients.Dni_client
 inner join localitats
 on clients.ID_localitat = localitats.ID_localitat
-where localitats.Nom = "Hospitalet";
+where localitats.Nom = "Hospitalet" 
 
 
-/*Llista quantes comandes ha efectuat un determinat empleat/da.*/
+/*2- Llista quantes comandes ha efectuat un determinat empleat/da.*/
 per trobar la cantitat de comandes de un empleat serà molt útil la taula comandes_empleats_clients que detalla tothom que intervé en la comanda
 
 select count(ID_comanda) from comandes_empleats_clients
