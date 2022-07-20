@@ -1,10 +1,21 @@
 
+TAULA ULLERES:
+guardo l'informació detallada de cada model de ullera i el proveidor que la suministra, el mateix proveidor pot suministrar
+ulleres de la mateixa marca
+
+
+TAULA ULLERES/CLIENTS:
+taula intermitja a partir de la relació entre ulleres i clients (un client pot comprar varies ulleres, i una mateixa ullera la poden tenir molts clients)
+aquesta taula registra informació de cada venda detallada, la id de la ullera amb el client/s que l'han comprat, el dni del treballador que ha fet la venta
+i la data i el import total.
+
 
 
 /*CONSULTES*/
 
 
 /*1- Llista el total de factures d'un client/a en un període determinat. */
+
 select id_client, count(id_ullera) as total_factures
 from ulleres_clients
 where id_client = "4"
@@ -12,16 +23,26 @@ and data_venta between '2020-01-01' and '2022-12-31';
 
 
 /*2-Llista els diferents models d'ulleres que ha venut un empleat/da durant un any.*/
+
+/*Busco de la taula de vendas (ulleres_clients) el dni d'un venedor  i busco de quina marca corresponen els models que ha venut
+a la taula ulleres. filtro per dni del venedor i data_venta de 1 any*/
+
+
 select ulleres_clients.dni_empleat_venedor, ulleres.marca, ulleres.id_ullera
 from ulleres
 inner join ulleres_clients
 on ulleres.id_ullera = ulleres_clients.id_ullera
-where dni_empleat_venedor = "632739J";
+where dni_empleat_venedor = "632739J"
+and ulleres_clients.data_venta between '2021-01-01' and '2022-12-31';
 
 
 /*3- Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica. */
-/*seleccionant les ids de las ulleres qaue han comprat els clients, relacionan amb quin proveidor pertoca cada una*/
-select ulleres_clients.id_ullera as total_ulleres, ulleres.Dni_proveidor
+
+/*selecciono les ids de les ulleres que han comprat els clients, de la taula ventes on només surten les ulleres venudes.
+busco de la taula ulleres on tinc guardat quin proveidor suministra cada una d'aquestes ulleres*/
+
+
+select ulleres_clients.id_ullera, ulleres.Dni_proveidor
 from ulleres_clients
 inner join ulleres
 on ulleres_clients.id_ulleres_clientscol = ulleres.id_ullera
