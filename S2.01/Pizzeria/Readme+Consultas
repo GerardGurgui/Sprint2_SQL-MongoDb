@@ -3,16 +3,18 @@ dins de la taula localitats guardo les diferents provincies amb les seves corres
 la relaciono amb la taula clients, però no guardo el dni del client en aquestes taules per qué estariam creant massa repetició
 de una mateixa localitat/provincia per els centenars o milers de clients que pugui tenir cada una.
 
-la taula localitats és forta i provincies dèbil, ja que una provincia depen de una localitat per existir
+la taula localitats és forta i provincies dèbil, ja que una provincia depen de una localitat per existir.
 
 
-Les 4 taules més importants de la base de dades (Botigues, Clients, Empleats i Comandes) les 4 sòn dèbils, ja que cada una depen de un altre
-per existir i tenir sentit.
+
+ENTITATS PRINCIPALS:
+Les 4 taules més importants de la base de dades (Botigues, Clients, Empleats i Comandes) les 4 estàn relacionades i cada una depen d'un altre per existir,
+per tant les he indicat totes com a dèbils.
 
 
 TAULA COMANDES_EMPLEATS_CLIENTS:
-per relacionar aquestes 4 taules he volgut crear aquesta taula, d'aquesta manera tinc l'informació junta de 
-totes les entitats que intervenen/gestionen una comanda.
+per relacionar aquestes 4 taules he decidit crear aquesta taula, d'aquesta manera tinc l'informació de 
+totes les entitats que intervenen/gestionen una comanda en una mateixa taula.
 guardant les claus primàries de cada taula relacionada, puc accedir de manera molt ràpida i fàcil a aquesta informació,
 agilitzant considerablament consultes importants i frequents.
 
@@ -23,20 +25,14 @@ molts productes.
 aquesta taula ens servirá per identificar els productes en concret que formen cada comanda.
 
 
+//CONSULTES//
+
+/*1- Llista quants productes de categoria 'Begudes' s'han venut en una determinada localitat*/
+consulta, per saber les begudes venudes en una localitat, podem seleccionar el total de begudes de la llista de comandes.
+amb el total de begudes, 
 
 
-/CONSULTAS/
-
-consulta, per saber les begudes venudes en una localitat, podem seleccionar el total de begudes de la llista de comandes i
- buscar de quina localitat es cada client (una en concret)
-
-per trobar la cantitat de comandes de un empleat sera molt util la taula comandes_empleats_clients que reflexa totom que interve en la comanda
-tenim a la mateixa taula quantes comandes realitza cada empleat
-
-
-/*Llista quants productes de categoria 'Begudes' s'han venut en una determinada localitat*/
-
-select count(comandes.begudes) as total_begudes, clients.ID_localitat, localitats.Nom as nom_localitat
+select count(comandes.begudes) as total_begudes, localitats.Nom as nom_localitat
 from comandes
 inner join clients
 on comandes.ID_comanda = clients.ID_localitat
@@ -44,6 +40,9 @@ inner join localitats
 on clients.ID_localitat = localitats.ID_localitat
 where localitats.Nom = "Hospitalet";
 
+
 /*Llista quantes comandes ha efectuat un determinat empleat/da.*/
+per trobar la cantitat de comandes de un empleat serà molt útil la taula comandes_empleats_clients que detalla tothom que intervé en la comanda
+
 select count(ID_comanda) from comandes_empleats_clients
 where Dni_empleat = "435323T"
