@@ -6,14 +6,8 @@ de una mateixa localitat/provincia per els centenars o milers de clients que pug
 la taula localitats és forta i provincies dèbil, ja que una provincia depen de una localitat per existir.
 
 
-
-ENTITATS PRINCIPALS:
-Les 4 taules més importants de la base de dades (Botigues, Clients, Empleats i Comandes) les 4 estàn relacionades i cada una depen d'un altre per existir,
-per tant les he indicat totes com a dèbils.
-
-
 TAULA COMANDES_EMPLEATS_CLIENTS:
-per relacionar aquestes 4 taules he decidit crear aquesta taula, d'aquesta manera tinc l'informació de 
+per relacionar les 4 taules més importants(Clients, Comandes, Botigues, Empleats) he decidit crear aquesta taula, d'aquesta manera tinc l'informació de 
 totes les entitats que intervenen/gestionen una comanda en una mateixa taula.
 guardant les claus primàries de cada taula relacionada, puc accedir de manera molt ràpida i fàcil a aquesta informació,
 agilitzant considerablament consultes importants i frequents.
@@ -23,6 +17,11 @@ TAULA COMANDES_PRODUCTES:
 taula que creem de la relació entre productes i comandes (N:M). Un producte pot estar en varies comandes, i varies comandes poden tenir
 molts productes.
 aquesta taula ens servirá per identificar els productes en concret que formen cada comanda.
+
+
+TAULES PROVINCIES/CATEGORIES_PIZZES:
+aquestes dues taules sòn les débils de la bases de dades, les provincies no poden exisitir sense una localitat, i les categories de pizzes no poden existir
+sense la taula productes.
 
 
 //CONSULTES//
