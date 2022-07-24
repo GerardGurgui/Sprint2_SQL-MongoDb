@@ -1,1 +1,9 @@
 
+
+README PENDENT
+
+--TAULES DE SQL ara son documents dins de coleccions, mongo no te integritat referencial ni normalitzacio (crec)
+
+podem relacionar coleccions pero te molta mes flexibilitat que a relacional, es algo mes representatiu que no restrictiu.
+
+mirar be las pk i fk si es semblant o com va, moon modeler em relaciona igual q a sql
