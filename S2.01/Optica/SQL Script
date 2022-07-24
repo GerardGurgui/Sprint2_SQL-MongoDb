@@ -1,6 +1,8 @@
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `optica` DEFAULT CHARACTER SET utf8mb3 ;
+
+CREATE SCHEMA IF NOT EXISTS `optica` DEFAULT CHARACTER SET utf8 ;
 USE `optica` ;
+
+
 
 -- -----------------------------------------------------
 -- Table `optica`.`clients`
@@ -15,7 +17,8 @@ CREATE TABLE IF NOT EXISTS `optica`.`clients` (
   `client_recomenat` ENUM('si', 'no') NULL DEFAULT NULL,
   PRIMARY KEY (`id_client`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+DEFAULT CHARACTER SET = utf8;
+
 
 
 -- -----------------------------------------------------
@@ -26,18 +29,31 @@ CREATE TABLE IF NOT EXISTS `optica`.`proveidors` (
   `Nom` VARCHAR(45) NOT NULL,
   `telefon` VARCHAR(45) NOT NULL,
   `fax` VARCHAR(45) NULL DEFAULT NULL,
-  `direccio` VARCHAR(45) NULL DEFAULT NULL,
-  `carrer` VARCHAR(45) NULL DEFAULT NULL,
-  `num` VARCHAR(45) NULL DEFAULT NULL,
-  `pis` VARCHAR(45) NULL DEFAULT NULL,
-  `porta` VARCHAR(45) NULL DEFAULT NULL,
-  `ciutat` VARCHAR(45) NULL DEFAULT NULL,
-  `codi_postal` VARCHAR(45) NULL DEFAULT NULL,
-  `pais` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`Dni_proveidor`))
+  `correu_electronic` VARCHAR(45) NULL DEFAULT NULL,
+  `id_direccio` INT NOT NULL,
+  PRIMARY KEY (`Dni_proveidor`, `id_direccio`),
+  INDEX `fk_proveidors_direccio_proveidor1_idx` (`id_direccio` ASC) VISIBLE,
+  CONSTRAINT `fk_proveidors_direccio_proveidor1`
+    FOREIGN KEY (`id_direccio`)
+    REFERENCES `mydb`.`direccio_proveidor` (`id_direccio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `optica`.`direccio_proveidor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `optica`.`direccio_proveidor` (
+  `id_direccio` INT NOT NULL,
+  `carrer` VARCHAR(45) NULL,
+  `numero` VARCHAR(45) NULL,
+  `pis` VARCHAR(45) NULL,
+  `porta` VARCHAR(45) NULL,
+  `codi_postal` VARCHAR(45) NULL,
+  `pais` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_direccio`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `optica`.`ulleres`
@@ -55,31 +71,31 @@ CREATE TABLE IF NOT EXISTS `optica`.`ulleres` (
   INDEX `fk_ulleres_proveidors1_idx` (`Dni_proveidor` ASC) VISIBLE,
   CONSTRAINT `fk_ulleres_proveidors1`
     FOREIGN KEY (`Dni_proveidor`)
-    REFERENCES `optica`.`proveidors` (`Dni_proveidor`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `optica`.`proveidors` (`Dni_proveidor`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `optica`.`ulleres_clients`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `optica`.`ulleres_clients` (
-  `id_ulleres_clientscol` INT NOT NULL,
-  `ulleres_id_ullera` INT NOT NULL,
-  `clients_id_client` INT NOT NULL,
+  `id_ulleres_clientscol` INT NOT NULL AUTO_INCREMENT,
+  `id_ullera` INT NOT NULL,
+  `id_client` INT NOT NULL,
   `dni_empleat_venedor` VARCHAR(20) NULL DEFAULT NULL,
   `importe_total` DOUBLE NULL DEFAULT NULL,
   `data_venta` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`id_ulleres_clientscol`, `ulleres_id_ullera`, `clients_id_client`),
-  INDEX `fk_ulleres_has_clients_clients1_idx` (`clients_id_client` ASC) VISIBLE,
-  INDEX `fk_ulleres_has_clients_ulleres1_idx` (`ulleres_id_ullera` ASC) VISIBLE,
+  PRIMARY KEY (`id_ulleres_clientscol`, `id_ullera`, `id_client`),
+  INDEX `fk_ulleres_has_clients_clients1_idx` (`id_client` ASC) VISIBLE,
+  INDEX `fk_ulleres_has_clients_ulleres1_idx` (`id_ullera` ASC) VISIBLE,
   CONSTRAINT `fk_ulleres_has_clients_clients1`
-    FOREIGN KEY (`clients_id_client`)
+    FOREIGN KEY (`id_client`)
     REFERENCES `optica`.`clients` (`id_client`),
   CONSTRAINT `fk_ulleres_has_clients_ulleres1`
-    FOREIGN KEY (`ulleres_id_ullera`)
+    FOREIGN KEY (`id_ullera`)
     REFERENCES `optica`.`ulleres` (`id_ullera`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8;
+
