@@ -7,3 +7,6 @@ README PENDENT
 podem relacionar coleccions pero te molta mes flexibilitat que a relacional, es algo mes representatiu que no restrictiu.
 
 mirar be las pk i fk si es semblant o com va, moon modeler em relaciona igual q a sql
+
+
+MODIFICAR ATRIBUT TIPUS MONTURA, MIRAR DE QUE SURTI NOMES EL QUE ES. pero tmbe pensar q a nosql podem guardar mes dades i camps
