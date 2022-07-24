@@ -1,0 +1,146 @@
+
+COLLECTION PROVEIDORS:
+
+db.createCollection('proveidors', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'proveidors',
+      required: ['_dni', 'nom'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        },
+        fax: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            porta: {
+              bsonType: 'string'
+            },
+            ciutat: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            pais: {
+              bsonType: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
+}); 
+
+
+COLLECTION ULLERES:
+
+Main Diagram
+db.createCollection('ulleres', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'ulleres',
+      required: ['marca', 'dni_proveidor'],
+      properties: {
+        marca: {
+          bsonType: 'string'
+        },
+        tipus_montura: {
+          bsonType: 'object',
+          title: 'tipus_montura',
+          properties: {
+            flotant: {
+              enum: 'si',
+              'no'
+            },
+            metalica: {
+              enum: 'si',
+              'no'
+            },
+            pasta: {
+              enum: 'si',
+              'no'
+            }
+          }
+        },
+        color_montura: {
+          bsonType: 'string'
+        },
+        color_vidre: {
+          bsonType: 'string'
+        },
+        graduacio_vidre: {
+          bsonType: 'string'
+        },
+        preu: {
+          bsonType: 'double'
+        },
+        dni_proveidor: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+
+
+COLLECTION CLIENTS:
+
+Main Diagram
+db.createCollection('clients', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'clients',
+      required: ['_dni', 'nom', 'id_ullera'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        },
+        correu_electronic: {
+          bsonType: 'string'
+        },
+        data_registre: {
+          bsonType: 'date'
+        },
+        client_recomenat: {
+          enum: 'si',
+          'no'
+        },
+        id_ullera: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
