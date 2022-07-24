@@ -1,4 +1,5 @@
 
+
 TAULA ULLERES:
 guardo l'informació detallada de cada model de ullera i el proveidor que la suministra, el mateix proveidor pot suministrar
 ulleres de la mateixa marca
@@ -8,6 +9,12 @@ TAULA ULLERES/CLIENTS:
 taula intermitja a partir de la relació entre ulleres i clients (un client pot comprar varies ulleres, i una mateixa ullera la poden tenir molts clients)
 aquesta taula registra informació de cada venda detallada, la id de la ullera amb el client/s que l'han comprat, el dni del treballador que ha fet la venta
 i la data i el import total.
+
+
+
+TAULA DIRECCIO_PROVEIDOR:
+guardo la direcció completa de cada proveidor en una taula apart, estará relacionada amb la taula proveidor per el id de la direcció.
+cada proveidor té una direcció única i una direcció en concret només pertany a un proveidor.
 
 
 
