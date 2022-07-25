@@ -50,10 +50,10 @@ db.createCollection('proveidors', {
       }
     }
   }
-}); 
+});
 
 
-COLLECTION ULLERES:
+COLLECTION CLIENTS:
 
 Main Diagram
 db.createCollection('ulleres', {
@@ -67,22 +67,9 @@ db.createCollection('ulleres', {
           bsonType: 'string'
         },
         tipus_montura: {
-          bsonType: 'object',
-          title: 'tipus_montura',
-          properties: {
-            flotant: {
-              enum: 'si',
-              'no'
-            },
-            metalica: {
-              enum: 'si',
-              'no'
-            },
-            pasta: {
-              enum: 'si',
-              'no'
-            }
-          }
+          enum: 'flotant',
+          'pasta',
+          'metalica'
         },
         color_montura: {
           bsonType: 'string'
@@ -98,6 +85,25 @@ db.createCollection('ulleres', {
         },
         dni_proveidor: {
           bsonType: 'objectId'
+        },
+        total_ventas: {
+          bsonType: 'object',
+          title: 'ulleres_clients',
+          required: ['id_ullera', 'dni_client'],
+          properties: {
+            id_ullera: {
+              bsonType: 'objectId'
+            },
+            dni_client: {
+              bsonType: 'objectId'
+            },
+            data_venta: {
+              bsonType: 'date'
+            },
+            import_total: {
+              bsonType: 'double'
+            }
+          }
         }
       }
     }
@@ -107,13 +113,12 @@ db.createCollection('ulleres', {
 
 COLLECTION CLIENTS:
 
-Main Diagram
 db.createCollection('clients', {
   validator: {
     $jsonSchema: {
       bsonType: 'object',
       title: 'clients',
-      required: ['_dni', 'nom', 'id_ullera'],
+      required: ['_dni', 'nom'],
       properties: {
         _dni: {
           bsonType: 'objectId'
@@ -122,7 +127,31 @@ db.createCollection('clients', {
           bsonType: 'string'
         },
         direccio: {
-          bsonType: 'string'
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            porta: {
+              bsonType: 'string'
+            },
+            ciutat: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            pais: {
+              bsonType: 'string'
+            }
+          }
         },
         telefon: {
           bsonType: 'string'
@@ -134,11 +163,51 @@ db.createCollection('clients', {
           bsonType: 'date'
         },
         client_recomenat: {
-          enum: 'si',
-          'no'
+          bsonType: 'object',
+          title: 'client_recomenat',
+          required: ['dni_client '],
+          properties: {
+            dni_client: {
+              bsonType: 'string'
+            },
+            nom: {
+              bsonType: 'string'
+            },
+            direccio: {
+              bsonType: 'string'
+            },
+            telefon: {
+              bsonType: 'string'
+            },
+            correu_electronic: {
+              bsonType: 'string'
+            },
+            data_registre: {
+              bsonType: 'date'
+            },
+            preu: {
+              bsonType: 'double'
+            }
+          }
         },
-        id_ullera: {
-          bsonType: 'objectId'
+        total_compras: {
+          bsonType: 'object',
+          title: 'ulleres_clients',
+          required: ['id_ullera', 'dni_client'],
+          properties: {
+            id_ullera: {
+              bsonType: 'objectId'
+            },
+            dni_client: {
+              bsonType: 'objectId'
+            },
+            data_venta: {
+              bsonType: 'date'
+            },
+            import_total: {
+              bsonType: 'double'
+            }
+          }
         }
       }
     }
