@@ -51,3 +51,18 @@ db.restaurant.find({borough:'Bronx', cuisine:{$in:['American ','Chinese']}});
 
 //18.Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que pertanyen a Staten Island o Queens o Bronx o Brooklyn.
 db.restaurant.find({borough:{$in: ['Bronx','Staten Island','Queens', 'Brooklyn']}}, {restaurant_id: 1, name : 1, borough: 1, cousine:1, _id: 0});
+
+
+//19. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que no pertanyen a Staten Island o Queens o Bronx o Brooklyn.
+db.restaurant.find({borough: {$nin: ["Staten Island", "Queens", "Bronx", "Brooklyn"]}}, {restaurant_id: 1, name : 1, borough: 1, cuisine: 1, _id: 0});
+
+
+//20. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que aconsegueixin un marcador que no és més de 10.
+db.restaurant.find({'grades.score': {$lte: 10}}, {restaurant_id: 1, name : 1, borough: 1, cuisine: 1, _id: 0});
+
+
+//21. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que preparen peix excepte 'American' i 'Chinese' o el name del restaurant comença amb lletres 'Wil'.
+
+
+//22. Escriu una consulta per trobar el restaurant_id, name, i grades per a aquells restaurants que aconsegueixin un grau "A" i un score 11 en dades d'estudi ISODate "2014-08-11T00:00:00Z".
+db.restaurant.find({grades: {$elemMatch: {date: ISODate("2014-08-11T00:00:00Z"), grade: "A", score: 11}}}, {restaurant_id: 1, name : 1, grades: 1, _id: 0});
