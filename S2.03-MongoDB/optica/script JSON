@@ -1,0 +1,50 @@
+db.createCollection('proveidors', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'proveidors',
+      required: ['_dni', 'nom'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        },
+        fax: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            porta: {
+              bsonType: 'string'
+            },
+            ciutat: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            pais: {
+              bsonType: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
+});
