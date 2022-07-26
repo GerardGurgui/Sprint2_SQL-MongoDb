@@ -1,0 +1,1476 @@
+
+CLIENTS
+
+db.createCollection('clients', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'clients',
+      required: ['_dni'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        cognoms: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        codi_postal: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+});
+db.createCollection('comandes', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'comandes',
+      required: ['clients'],
+      properties: {
+        quantitat_productes: {
+          bsonType: 'string'
+        },
+        pizzes: {
+          bsonType: 'array',
+          items: {
+            title: 'pizzes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              },
+              categoria_pizza: {
+                bsonType: 'array',
+                items: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        burguers: {
+          bsonType: 'array',
+          items: {
+            title: 'burguers',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        begudes: {
+          bsonType: 'array',
+          items: {
+            title: 'begudes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        clients: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+db.createCollection('botigues', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'botigues',
+      properties: {
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        empleats: {
+          bsonType: 'array',
+          items: {
+            title: 'empleats',
+            required: ['dni', 'botigues'],
+            properties: {
+              dni: {
+                bsonType: 'objectId'
+              },
+              nom: {
+                bsonType: 'string'
+              },
+              cognoms: {
+                bsonType: 'string'
+              },
+              telefon: {
+                bsonType: 'string'
+              },
+              lloc_de_treball: {
+                bsonType: 'string'
+              },
+              direccio: {
+                bsonType: 'object',
+                title: 'direccio',
+                properties: {
+                  carrer: {
+                    bsonType: 'string'
+                  },
+                  numero: {
+                    bsonType: 'string'
+                  },
+                  pis: {
+                    bsonType: 'string'
+                  },
+                  codi_postal: {
+                    bsonType: 'string'
+                  },
+                  localitat: {
+                    bsonType: 'object',
+                    title: 'localitats',
+                    required: ['id_localitat'],
+                    properties: {
+                      id_localitat: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  },
+                  provincia: {
+                    bsonType: 'object',
+                    title: 'provincies',
+                    required: ['id_provincia'],
+                    properties: {
+                      id_provincia: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  }
+                }
+              },
+              botigues: {
+                bsonType: 'objectId'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.createCollection('detalls_venta', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'detalls_venta',
+      required: ['clients', 'comandes', 'botigues', 'preu_total', 'direccio'],
+      properties: {
+        clients: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        comandes: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        botigues: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        entrega: {
+          bsonType: 'string'
+        },
+        data_hora: {
+          bsonType: 'date'
+        },
+        preu_total: {
+          bsonType: 'double'
+        },
+        direccio: {
+          bsonType: 'array',
+          items: {
+            title: 'direccio',
+            properties: {
+              carrer: {
+                bsonType: 'string'
+              },
+              numero: {
+                bsonType: 'string'
+              },
+              pis: {
+                bsonType: 'string'
+              },
+              codi_postal: {
+                bsonType: 'string'
+              },
+              localitat: {
+                bsonType: 'object',
+                title: 'localitats',
+                required: ['id_localitat'],
+                properties: {
+                  id_localitat: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              },
+              provincia: {
+                bsonType: 'object',
+                title: 'provincies',
+                required: ['id_provincia'],
+                properties: {
+                  id_provincia: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.detalls_venta.createIndex()
+
+
+COMANDES
+
+db.createCollection('clients', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'clients',
+      required: ['_dni'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        cognoms: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        codi_postal: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+});
+db.createCollection('comandes', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'comandes',
+      required: ['clients'],
+      properties: {
+        quantitat_productes: {
+          bsonType: 'string'
+        },
+        pizzes: {
+          bsonType: 'array',
+          items: {
+            title: 'pizzes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              },
+              categoria_pizza: {
+                bsonType: 'array',
+                items: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        burguers: {
+          bsonType: 'array',
+          items: {
+            title: 'burguers',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        begudes: {
+          bsonType: 'array',
+          items: {
+            title: 'begudes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        clients: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+db.createCollection('botigues', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'botigues',
+      properties: {
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        empleats: {
+          bsonType: 'array',
+          items: {
+            title: 'empleats',
+            required: ['dni', 'botigues'],
+            properties: {
+              dni: {
+                bsonType: 'objectId'
+              },
+              nom: {
+                bsonType: 'string'
+              },
+              cognoms: {
+                bsonType: 'string'
+              },
+              telefon: {
+                bsonType: 'string'
+              },
+              lloc_de_treball: {
+                bsonType: 'string'
+              },
+              direccio: {
+                bsonType: 'object',
+                title: 'direccio',
+                properties: {
+                  carrer: {
+                    bsonType: 'string'
+                  },
+                  numero: {
+                    bsonType: 'string'
+                  },
+                  pis: {
+                    bsonType: 'string'
+                  },
+                  codi_postal: {
+                    bsonType: 'string'
+                  },
+                  localitat: {
+                    bsonType: 'object',
+                    title: 'localitats',
+                    required: ['id_localitat'],
+                    properties: {
+                      id_localitat: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  },
+                  provincia: {
+                    bsonType: 'object',
+                    title: 'provincies',
+                    required: ['id_provincia'],
+                    properties: {
+                      id_provincia: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  }
+                }
+              },
+              botigues: {
+                bsonType: 'objectId'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.createCollection('detalls_venta', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'detalls_venta',
+      required: ['clients', 'comandes', 'botigues', 'preu_total', 'direccio'],
+      properties: {
+        clients: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        comandes: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        botigues: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        entrega: {
+          bsonType: 'string'
+        },
+        data_hora: {
+          bsonType: 'date'
+        },
+        preu_total: {
+          bsonType: 'double'
+        },
+        direccio: {
+          bsonType: 'array',
+          items: {
+            title: 'direccio',
+            properties: {
+              carrer: {
+                bsonType: 'string'
+              },
+              numero: {
+                bsonType: 'string'
+              },
+              pis: {
+                bsonType: 'string'
+              },
+              codi_postal: {
+                bsonType: 'string'
+              },
+              localitat: {
+                bsonType: 'object',
+                title: 'localitats',
+                required: ['id_localitat'],
+                properties: {
+                  id_localitat: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              },
+              provincia: {
+                bsonType: 'object',
+                title: 'provincies',
+                required: ['id_provincia'],
+                properties: {
+                  id_provincia: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.detalls_venta.createIndex()
+
+
+BOTIGUES
+
+db.createCollection('clients', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'clients',
+      required: ['_dni'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        cognoms: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        codi_postal: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+});
+db.createCollection('comandes', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'comandes',
+      required: ['clients'],
+      properties: {
+        quantitat_productes: {
+          bsonType: 'string'
+        },
+        pizzes: {
+          bsonType: 'array',
+          items: {
+            title: 'pizzes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              },
+              categoria_pizza: {
+                bsonType: 'array',
+                items: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        burguers: {
+          bsonType: 'array',
+          items: {
+            title: 'burguers',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        begudes: {
+          bsonType: 'array',
+          items: {
+            title: 'begudes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        clients: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+db.createCollection('botigues', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'botigues',
+      properties: {
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        empleats: {
+          bsonType: 'array',
+          items: {
+            title: 'empleats',
+            required: ['dni', 'botigues'],
+            properties: {
+              dni: {
+                bsonType: 'objectId'
+              },
+              nom: {
+                bsonType: 'string'
+              },
+              cognoms: {
+                bsonType: 'string'
+              },
+              telefon: {
+                bsonType: 'string'
+              },
+              lloc_de_treball: {
+                bsonType: 'string'
+              },
+              direccio: {
+                bsonType: 'object',
+                title: 'direccio',
+                properties: {
+                  carrer: {
+                    bsonType: 'string'
+                  },
+                  numero: {
+                    bsonType: 'string'
+                  },
+                  pis: {
+                    bsonType: 'string'
+                  },
+                  codi_postal: {
+                    bsonType: 'string'
+                  },
+                  localitat: {
+                    bsonType: 'object',
+                    title: 'localitats',
+                    required: ['id_localitat'],
+                    properties: {
+                      id_localitat: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  },
+                  provincia: {
+                    bsonType: 'object',
+                    title: 'provincies',
+                    required: ['id_provincia'],
+                    properties: {
+                      id_provincia: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  }
+                }
+              },
+              botigues: {
+                bsonType: 'objectId'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.createCollection('detalls_venta', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'detalls_venta',
+      required: ['clients', 'comandes', 'botigues', 'preu_total', 'direccio'],
+      properties: {
+        clients: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        comandes: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        botigues: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        entrega: {
+          bsonType: 'string'
+        },
+        data_hora: {
+          bsonType: 'date'
+        },
+        preu_total: {
+          bsonType: 'double'
+        },
+        direccio: {
+          bsonType: 'array',
+          items: {
+            title: 'direccio',
+            properties: {
+              carrer: {
+                bsonType: 'string'
+              },
+              numero: {
+                bsonType: 'string'
+              },
+              pis: {
+                bsonType: 'string'
+              },
+              codi_postal: {
+                bsonType: 'string'
+              },
+              localitat: {
+                bsonType: 'object',
+                title: 'localitats',
+                required: ['id_localitat'],
+                properties: {
+                  id_localitat: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              },
+              provincia: {
+                bsonType: 'object',
+                title: 'provincies',
+                required: ['id_provincia'],
+                properties: {
+                  id_provincia: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.detalls_venta.createIndex()
+
+
+
+DETALLS_VENTA
+
+
+db.createCollection('clients', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'clients',
+      required: ['_dni'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        cognoms: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        codi_postal: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+});
+db.createCollection('comandes', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'comandes',
+      required: ['clients'],
+      properties: {
+        quantitat_productes: {
+          bsonType: 'string'
+        },
+        pizzes: {
+          bsonType: 'array',
+          items: {
+            title: 'pizzes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              },
+              categoria_pizza: {
+                bsonType: 'array',
+                items: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        burguers: {
+          bsonType: 'array',
+          items: {
+            title: 'burguers',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        begudes: {
+          bsonType: 'array',
+          items: {
+            title: 'begudes',
+            properties: {
+              nom: {
+                bsonType: 'string'
+              },
+              descripcio: {
+                bsonType: 'string'
+              },
+              imatge: {
+                bsonType: 'binData'
+              },
+              preu: {
+                bsonType: 'double'
+              }
+            }
+          }
+        },
+        clients: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+db.createCollection('botigues', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'botigues',
+      properties: {
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            localitat: {
+              bsonType: 'object',
+              title: 'localitats',
+              required: ['id_localitat'],
+              properties: {
+                id_localitat: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            },
+            provincia: {
+              bsonType: 'object',
+              title: 'provincies',
+              required: ['id_provincia'],
+              properties: {
+                id_provincia: {
+                  bsonType: 'objectId'
+                },
+                nom: {
+                  bsonType: 'string'
+                }
+              }
+            }
+          }
+        },
+        empleats: {
+          bsonType: 'array',
+          items: {
+            title: 'empleats',
+            required: ['dni', 'botigues'],
+            properties: {
+              dni: {
+                bsonType: 'objectId'
+              },
+              nom: {
+                bsonType: 'string'
+              },
+              cognoms: {
+                bsonType: 'string'
+              },
+              telefon: {
+                bsonType: 'string'
+              },
+              lloc_de_treball: {
+                bsonType: 'string'
+              },
+              direccio: {
+                bsonType: 'object',
+                title: 'direccio',
+                properties: {
+                  carrer: {
+                    bsonType: 'string'
+                  },
+                  numero: {
+                    bsonType: 'string'
+                  },
+                  pis: {
+                    bsonType: 'string'
+                  },
+                  codi_postal: {
+                    bsonType: 'string'
+                  },
+                  localitat: {
+                    bsonType: 'object',
+                    title: 'localitats',
+                    required: ['id_localitat'],
+                    properties: {
+                      id_localitat: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  },
+                  provincia: {
+                    bsonType: 'object',
+                    title: 'provincies',
+                    required: ['id_provincia'],
+                    properties: {
+                      id_provincia: {
+                        bsonType: 'objectId'
+                      },
+                      nom: {
+                        bsonType: 'string'
+                      }
+                    }
+                  }
+                }
+              },
+              botigues: {
+                bsonType: 'objectId'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.createCollection('detalls_venta', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'detalls_venta',
+      required: ['clients', 'comandes', 'botigues', 'preu_total', 'direccio'],
+      properties: {
+        clients: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        comandes: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        botigues: {
+          bsonType: 'array',
+          items: {
+            bsonType: 'objectId'
+          }
+        },
+        entrega: {
+          bsonType: 'string'
+        },
+        data_hora: {
+          bsonType: 'date'
+        },
+        preu_total: {
+          bsonType: 'double'
+        },
+        direccio: {
+          bsonType: 'array',
+          items: {
+            title: 'direccio',
+            properties: {
+              carrer: {
+                bsonType: 'string'
+              },
+              numero: {
+                bsonType: 'string'
+              },
+              pis: {
+                bsonType: 'string'
+              },
+              codi_postal: {
+                bsonType: 'string'
+              },
+              localitat: {
+                bsonType: 'object',
+                title: 'localitats',
+                required: ['id_localitat'],
+                properties: {
+                  id_localitat: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              },
+              provincia: {
+                bsonType: 'object',
+                title: 'provincies',
+                required: ['id_provincia'],
+                properties: {
+                  id_provincia: {
+                    bsonType: 'objectId'
+                  },
+                  nom: {
+                    bsonType: 'string'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.detalls_venta.createIndex()
+Main Diagram
+Properties
+
+
+
+
+
