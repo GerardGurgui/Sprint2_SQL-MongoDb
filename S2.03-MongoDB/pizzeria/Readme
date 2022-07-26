@@ -1,1 +1,43 @@
 
+Per crear aquesta base de dades no relacional, podem prioritzar la cantitat d'informació guardada sense preucupar-nos
+per la duplicitat de dades.
+NoSql ens permet guardar grans cantitats de dades, aquí podem identificar les relacions entre taules no només per el camp
+relacionat, amb Sql tindriam que fer consultes amb joins per extreure les dades que volem saber. En canvi aquí podem guardar
+tota l'informació d'una taula a l'altre.
+Això també serà molt útil per tenir bases de dades escalables, podem implementar documents ya definits dins de taules que ho
+requereixin.
+
+
+DOCUMENTS: PROVINCIES/LOCALITATS/DIRECCIÓ
+
+Creo un document direcció que em servirá per les 4 entitats que tenen una direcció física. les 4 ho implementan 
+dins la propia colecció amb totes els camps que conté el document direcció.
+Direcció implementa els documents provincies i localitats.
+Així amb un sol document de direcció ho puc implementar a cualsevol entitat que ho necessiti.
+
+
+DOCUMENTS: PIZZES/BURGUERS/BEGUDES
+
+Creo un document per cada tipo de producte amb les dades de cada un, ho implementa la colecció comandes
+on guardo la cantitat de productes i el tipus que conté
+
+
+COLECCIÓ BOTIGUES:
+
+La colecció botigues guarda les dades de cada botiga, básicament de implementar el document direcció.
+També guardo per cada botiga un array de empleats que treballen allà. 
+Empleats és un document que implementa la colecció botigues, amb totes les dades personales i el puesto de treball (document)
+
+
+COLECCIÓ DETALLS_VENTA:
+
+Colecció que he decidit crear per obtenir totes les entitats i les seves dades que intervenen en la gestió
+de cada comanda.
+Conté els id's de les 3 entitats principals (Clients, Comandes, Botigues) i detalls de cada venta ( data, preu, etc)
+
+
+
+
+
+
+
