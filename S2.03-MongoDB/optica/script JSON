@@ -1,3 +1,6 @@
+
+//PROVEIDORS
+
 db.createCollection('proveidors', {
   validator: {
     $jsonSchema: {
@@ -48,3 +51,224 @@ db.createCollection('proveidors', {
     }
   }
 });
+
+
+
+ULLERES
+
+db.createCollection('ulleres', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'ulleres',
+      required: ['marca', 'dni_proveidor'],
+      properties: {
+        marca: {
+          bsonType: 'string'
+        },
+        tipus_montura: {
+          bsonType: 'string'
+        },
+        color_montura: {
+          bsonType: 'string'
+        },
+        color_vidre: {
+          bsonType: 'string'
+        },
+        graduacio_vidre: {
+          bsonType: 'string'
+        },
+        preu: {
+          bsonType: 'double'
+        },
+        dni_proveidor: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+
+CLIENTS
+
+db.createCollection('proveidors', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'proveidors',
+      required: ['_dni', 'nom'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        },
+        fax: {
+          bsonType: 'string'
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            porta: {
+              bsonType: 'string'
+            },
+            ciutat: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            pais: {
+              bsonType: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.createCollection('ulleres', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'ulleres',
+      required: ['marca', 'dni_proveidor'],
+      properties: {
+        marca: {
+          bsonType: 'string'
+        },
+        tipus_montura: {
+          bsonType: 'string'
+        },
+        color_montura: {
+          bsonType: 'string'
+        },
+        color_vidre: {
+          bsonType: 'string'
+        },
+        graduacio_vidre: {
+          bsonType: 'string'
+        },
+        preu: {
+          bsonType: 'double'
+        },
+        dni_proveidor: {
+          bsonType: 'objectId'
+        }
+      }
+    }
+  }
+});
+db.createCollection('clients', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'clients',
+      required: ['_dni', 'nom'],
+      properties: {
+        _dni: {
+          bsonType: 'objectId'
+        },
+        nom: {
+          bsonType: 'string'
+        },
+        telefon: {
+          bsonType: 'string'
+        },
+        correu_electronic: {
+          bsonType: 'string'
+        },
+        data_registre: {
+          bsonType: 'date'
+        },
+        client_recomenat: {
+          bsonType: 'object',
+          title: 'client',
+          properties: {
+            nom: {
+              bsonType: 'string'
+            },
+            cognoms: {
+              bsonType: 'string'
+            },
+            telefon: {
+              bsonType: 'string'
+            },
+            correu_electronic: {
+              bsonType: 'string'
+            },
+            data_registre: {
+              bsonType: 'date'
+            }
+          }
+        },
+        direccio: {
+          bsonType: 'object',
+          title: 'direccio',
+          properties: {
+            carrer: {
+              bsonType: 'string'
+            },
+            numero: {
+              bsonType: 'string'
+            },
+            pis: {
+              bsonType: 'string'
+            },
+            porta: {
+              bsonType: 'string'
+            },
+            ciutat: {
+              bsonType: 'string'
+            },
+            codi_postal: {
+              bsonType: 'string'
+            },
+            pais: {
+              bsonType: 'string'
+            }
+          }
+        },
+        facturas: {
+          bsonType: 'array',
+          items: {
+            title: 'vendes_ulleres',
+            required: ['id', 'ulleres', 'clients'],
+            properties: {
+              id: {
+                bsonType: 'objectId'
+              },
+              ulleres: {
+                bsonType: 'objectId'
+              },
+              clients: {
+                bsonType: 'objectId'
+              },
+              data_venta: {
+                bsonType: 'date'
+              },
+              import_total: {
+                bsonType: 'double'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+
