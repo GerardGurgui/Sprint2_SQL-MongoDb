@@ -1,5 +1,5 @@
 
-#S2.01 Estructura de datos SQL
+# S2.01 Estructura de datos SQL
 
 ## Nivel 1: 
 
