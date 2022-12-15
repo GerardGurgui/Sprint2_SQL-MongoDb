@@ -1,5 +1,5 @@
 
-# S2.01 Estructura de datos MongoDb
+# S2.03 Estructura de datos MongoDb
 
 ## Nivel 1: 
 
